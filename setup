@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "Compiling Clojurescript from source ..."
+git clone --depth 1 https://github.com/clojure/clojurescript lib/clojurescript
+cd lib/clojurescript
+./script/build
+cd ../..
+
+echo "Deploying tools.reader into local maven repo ..."
+git clone --depth 1 https://github.com/clojure/tools.reader lib/tools.reader
+cd lib/tools.reader
+lein install
+cd ../..
+
+echo "Installing npm dependencies"
+lein npm install
