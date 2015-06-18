@@ -4,36 +4,21 @@ Use ClojureScript to compile itself.
 
 ## Usage
 
-Install [ClojureScript](http://github.com/clojure/clojurescript) from master. 
-Checkout the ClojureScript repo and build and install into your local Maven:
+Compile [Cljs](http://github.com/clojure/clojurescript) and
+[tools.reader](https://github.com/clojure/tools.reader) from source and install
+npm deps for decent stacktraces:
 
-```
-cd clojurescript
-./script/build
-```
-
-Note the ClojureScript version number. Modify this repo's `project.clj` file to
-reflect the version number. 
-
-Checkout [tools.reader](https://github.com/clojure/tools.reader) from master.
-Install it into your local Maven:
-
-```
-cd tools.reader
-lein install
+```bash
+chmod a+x setup
+./setup
 ```
 
-Install the NPM dependencies to get reasonable stack traces:
-
-```
-cd cljs-bootstrap
-lein npm install
-```
+Modify this repo's `project.clj` to reflect the Cljs version.
 
 Start the REPL:
 
 ```
-lein trampoline run -m clojure.main script/repl.clj 
+rlwrap lein trampoline run -m clojure.main script/repl.clj 
 ```
 
 Try the following at the REPL by loading the necessary namespaces:
@@ -43,9 +28,7 @@ Try the following at the REPL by loading the necessary namespaces:
 (require '[cljs.analyzer :as ana] '[cljs.compiler :as c])
 ```
 
-Now you can eval. Note currently only trivial expressions work. Arbitrary
-source code requires macro support which has not yet landed in ClojureScript
-master:
+Now you can eval. 
 
 ```clj
 (js/eval
@@ -56,6 +39,9 @@ master:
           (assoc (ana/empty-env) :context :expr)
           :foo)))))
 ```
+
+Currently only trivial expressions work. Arbitrary source code requires macro
+support which has not yet landed in ClojureScript master.
 
 ## License
 
